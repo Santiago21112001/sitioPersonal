@@ -1,0 +1,21 @@
+/*Especificidad: 001*/
+body {
+	margin: 2em;
+	font-family: Arial, sans-serif;
+	color: #000000;
+	background-color: #FFF;
+  }
+/*Especificidad: 001*/
+h1 {
+	font-size: 3vw;
+}
+
+/*Especificidad: 001*/
+h2 {
+	font-size: 2vw;
+}
+
+/*Especificidad: 001*/
+nav {
+	font-size: 2vw;
+}
