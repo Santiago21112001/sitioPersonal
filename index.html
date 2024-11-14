@@ -22,15 +22,26 @@
     </script>
   </head>
   <body>
-    <h1>Sitio web de Santiago López Laso</h1>
-    <nav aria-label="Navegación principal">
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="hobbies.html">Aficiones</a></li>
-        <li><a href="computing.html">Informática</a></li>
-      </ul>
-    </nav>
-    <h2>Información personal</h2>
+    <header>
+      <h1>Sitio web de Santiago López Laso</h1>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="hobbies.html">Aficiones</a></li>
+          <li><a href="computing.html">Informática</a></li>
+        </ul>
+      </nav>
+      <!-- Campo de búsqueda -->
+      <div id="search-container">
+        <input type="text" id="search-input" placeholder="Buscar..." >
+        <button onclick="search()">Buscar</button>
+      </div>
+      <h2>Información personal</h2>
+    </header>
+    <!-- Contenedor para mostrar resultados de búsqueda -->
+    <div id="search-results"></div>
+
+    <script src="buscador.js"></script>
     <main>
       <p>Soy Santiago López Laso. Este es mi sitio web personal.</p>
       <p>Aquí puedes conocer cosas sobre mí.</p>
