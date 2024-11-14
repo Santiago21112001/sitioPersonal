@@ -22,16 +22,27 @@
     </script>
   </head>
   <body>
-    <h1>Sitio web de Santiago López Laso</h1>
-    <nav aria-label="Navegación principal">
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="hobbies.html">Aficiones</a></li>
-        <li><a href="computing.html">Informática</a></li>
-      </ul>
-    </nav>
-    <h2>Aficiones</h2>
+    <header>
+      <h1>Sitio web de Santiago López Laso</h1>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="hobbies.html">Aficiones</a></li>
+          <li><a href="computing.html">Informática</a></li>
+        </ul>
+      </nav>
+      <!-- Buscador -->
+      <div id="search-container">
+        <input type="text" id="search-input" placeholder="Buscar...">
+        <button onclick="search()">Buscar</button>
+      </div>
+      <div id="search-results"></div>
+      <script src="urls.js"></script>
+      <script src="buscador.js"></script>
+      <!-- Fin Buscador -->
+    </header>
     <main>
+      <h2>Aficiones</h2>
       <p>
         En mi tiempo libre suelo escuchar <strong>música</strong> y salir a hacer <strong>ejercicio</strong>.
         El deporte que más me gusta es la <strong>natación</strong>. También me gusta leer libros y ver vídeos en el teléfono móvil.
