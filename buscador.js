@@ -9,7 +9,7 @@ const pages = [
       "El deporte que más me gusta es la natación. También me gusta leer libros y ver vídeos en el teléfono móvil. " +
       "Me gustan sobre todo los libros de fantasía y ciencia ficción, aunque a veces leo libros de otros géneros. " +
       "De vez en cuando voy a ver películas, en casa o en el cine con mis amigos. " +
-      "Escucho un poco de todo, pero mi género favorito de música es el Pop. No tengo mascotas. Prefiero los gatos a los perros."
+      "Escucho un poco de todo, pero mi género de música favorito es el Pop. No tengo mascotas. Prefiero los gatos a los perros."
   },
   {
     name: "Informática", content: "He hecho el grado en Ingeniería Informática del Software, en laEscuela de Ingeniería Informática de Oviedo." +
