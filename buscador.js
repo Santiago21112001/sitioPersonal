@@ -1,75 +1,128 @@
-// Índice de las páginas que queremos buscar
-const pages = [
-  {
-    name: "Inicio", content: "Soy Santiago López Laso. Este es mi sitio web personal.Aquí puedes conocer cosas sobre mí. " +
-      "Prefiero no subir una foto mía, pero aquí puedes ver mi foto de perfil de GitHub."
-  },
-  {
-    name: "Aficiones", content: "En mi tiempo libre suelo escuchar música y salir a hacer ejercicio. " +
-      "El deporte que más me gusta es la natación. También me gusta leer libros y ver vídeos en el teléfono móvil. " +
-      "Me gustan sobre todo los libros de fantasía y ciencia ficción, aunque a veces leo libros de otros géneros. " +
-      "De vez en cuando voy a ver películas, en casa o en el cine con mis amigos. " +
-      "Escucho un poco de todo, pero mi género de música favorito es el Pop. No tengo mascotas. Prefiero los gatos a los perros."
-  },
-  {
-    name: "Informática", content: "He hecho el grado en Ingeniería Informática del Software, en laEscuela de Ingeniería Informática de Oviedo." +
-      "Estoy cursando el Máster en Ingeniería Web y en el futuro quiero trabajar como ingeniero informático. " +
-      "Aquí puedes ver mis conocimientos en Informática y los proyectos más importantes que desarrollé:"
-  },
-  {
-    name: "Conocimientos informáticos", content: "Lenguajes de programación que conozco. Java - El lenguaje en el que tengo más experiencia. " +
-      "Python - Utilizado en varios proyectos académicos y personales. C++ y C - Tengo cierta experiencia. JavaScript - Utilizado en algunos proyectos web." +
-      "Tecnologías que manejo Spring - Framework utilizado para desarrollo de aplicaciones backend en Java. React - Biblioteca de JavaScript" +
-      " para crear interfaces de usuario. Node.js - Entorno de servidor para ejecutar JavaScript del lado del servidor. Habilidades Además de conocimientos técnicos," +
-      " cuento con habilidades de trabajo en equipo y desarrollo de proyectos software, adquiridas en la Universidad de Oviedo y durante prácticas profesionales."
-  },
-  {
-    name: "Proyectos", content: "Proyectos destacados Juego de preguntas y respuestas Este es el proyecto web del que más estoy orgulloso. " +
-      "Es un juego de preguntas online que desarrollé en grupo. Ya no está activo el sitio, pero el código fuente se puede ver en el siguiente enlace: https://github.com/Arquisoft/wiq_es04d " +
-      "Juego de preguntas y respuestas Editor de circuitos y robots Otro proyecto que hice fue una aplicación de escritorio en Python para el Trabajo de Fin de Grado " +
-      ". El código fuente se puede ver en el siguiente enlace: https://github.com/Santiago21112001/editor_circuitos_robots_S4R. Editor de circuitos y robots"
-  }
-];
-
-// Función de búsqueda
 function search() {
-  const query = document.getElementById('search-input').value.toLowerCase();
-  const resultsContainer = document.getElementById('search-results');
-  resultsContainer.innerHTML = ''; // Limpia resultados anteriores
+  // Obtener el texto de búsqueda
+  const query = $('#search-input').val().toLowerCase().trim();
+  const searchResultsContainer = $('#search-results');
+  
+  // Limpiar resultados previos
+  searchResultsContainer.empty();
 
-  if (query === "") {
-    alert("Por favor, ingresa un término de búsqueda.");
+  // Si la consulta está vacía, no hacer nada
+  if (query.length === 0) {
+    searchResultsContainer.append('<p>Por favor ingrese un término de búsqueda.</p>');
     return;
   }
 
-  // Recorre cada página en el objeto `pages`
-  pages.forEach(page => {
-    // Busca coincidencias del término de búsqueda en el contenido de la página
-    if (page.content.toLowerCase().includes(query)) {
-      // Crea un fragmento del texto con el término de búsqueda resaltado
-      const snippet = createSnippet(page.content, query);
+  // Array para almacenar los resultados encontrados
+  let results = [];
 
-      // Genera el HTML para mostrar el resultado con un enlace a la página
-      const resultHTML = `
-        <div class="search-result">
-          <h2>Resultado encontrado en <a href="${urls.get(page.name)}">${page.name}</a></h2>
-          <p>...${snippet}...</p>
-        </div>`;
+  // Función para resaltar las palabras coincidentes en el texto
+  function highlightText(text) {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+  }
 
-      // Inserta el resultado en el contenedor de resultados
-      resultsContainer.insertAdjacentHTML('beforeend', resultHTML);
+  // Buscar en la página actual
+  function searchInPage(pageName, content) {
+    try {
+      // Buscar en los encabezados (h1, h2, h3, h4, h5, h6)
+      $(content).find('h1, h2, h3, h4, h5, h6').each(function() {
+        const text = $(this).text();
+        if (text.toLowerCase().includes(query)) {
+          results.push(`
+            <p>${highlightText(text)} 
+            <a href="${pageName}" target="_blank">${pageName}</a>
+            </p>
+          `);
+        }
+      });
+
+      // Buscar en los párrafos (<p>)
+      $(content).find('p').each(function() {
+        const text = $(this).text();
+        if (text.toLowerCase().includes(query)) {
+          results.push(`
+            <p>${highlightText(text)} 
+            <a href="${pageName}" target="_blank">${pageName}</a>
+            </p>
+          `);
+        }
+      });
+
+      // Buscar en los enlaces (<a>)
+      $(content).find('a').each(function() {
+        const text = $(this).text();
+        if (text.toLowerCase().includes(query)) {
+          results.push(`
+            <p>${highlightText(text)} 
+            <a href="${pageName}" target="_blank">${pageName}</a>
+            </p>
+          `);
+        }
+      });
+
+      // Buscar en las listas (<ul>, <ol>, <li>)
+      $(content).find('ul li, ol li').each(function() {
+        const text = $(this).text();
+        if (text.toLowerCase().includes(query)) {
+          results.push(`
+            <p>${highlightText(text)} 
+            <a href="${pageName}" target="_blank">${pageName}</a>
+            </p>
+          `);
+        }
+      });
+    } catch (error) {
+      console.error(`Error al procesar la página ${pageName}:`, error);
+      results.push(`<p><strong>Error al procesar la página ${pageName}.</strong></p>`);
     }
-  });
-}
+  }
 
-// Función para crear un fragmento de texto alrededor de la coincidencia
-function createSnippet(text, query) {
-  const index = text.toLowerCase().indexOf(query);
-  const snippetStart = Math.max(index - 30, 0); // Toma 30 caracteres antes de la coincidencia o desde el inicio
-  const snippetEnd = Math.min(index + 30, text.length); // Toma 30 caracteres después de la coincidencia o hasta el final
-  let snippet = text.substring(snippetStart, snippetEnd);
+  // Buscar en la página actual
+  searchInPage(window.location.pathname, document);
 
-  // Resalta el término de búsqueda en el fragmento
-  snippet = snippet.replace(query, `<strong>${query}</strong>`);
-  return snippet;
+  // Array con los nombres de los otros archivos HTML en el sitio
+  const otherPages = ['hobbies.html', 'computing.html']; // Añadir más si es necesario
+
+  // Función para buscar en los otros archivos HTML
+  function searchInOtherPages(pageName) {
+    return fetch(pageName)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error al cargar ${pageName}: ${response.statusText}`);
+        }
+        return response.text();
+      })
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        searchInPage(pageName, doc);
+      })
+      .catch(error => {
+        console.error(error);
+        results.push(`<p><strong>No se pudo cargar el archivo ${pageName}: ${error.message}</strong></p>`);
+      });
+  }
+
+  // Llamar a la función para buscar en otros archivos HTML
+  const promises = otherPages.map(pageName => searchInOtherPages(pageName));
+
+  // Esperar a que todas las búsquedas en otras páginas terminen
+  Promise.all(promises)
+    .then(() => {
+      displayResults();
+    })
+    .catch(error => {
+      // Este catch captura cualquier error no manejado en las promesas
+      console.error('Error general en la búsqueda:', error);
+      results.push('<p><strong>Hubo un error en la búsqueda. Por favor, intente de nuevo más tarde.</strong></p>');
+      displayResults();
+    });
+
+  // Función para mostrar los resultados
+  function displayResults() {
+    if (results.length > 0) {
+      searchResultsContainer.append(results.join(''));
+    } else {
+      searchResultsContainer.append('<p>No se encontraron resultados.</p>');
+    }
+  }
 }

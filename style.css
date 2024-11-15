@@ -70,3 +70,9 @@ input {
   background-color: #f0f0f0;
   color: #555;
 }
+
+.highlight {
+  background-color: yellow;
+  color: #000000;
+  font-weight: bold;
+}
