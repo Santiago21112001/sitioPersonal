@@ -19,6 +19,10 @@ nav ul {
   flex-wrap: wrap;
 }
 
+nav ul li {
+  display: block;
+}
+
 a {
   color: #007bff;
   background-color: #fff;
