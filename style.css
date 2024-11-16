@@ -17,10 +17,7 @@ nav ul {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-nav ul li {
-  display: block;
+  overflow-x: hidden;
 }
 
 a {
@@ -37,6 +34,19 @@ a:hover {
 nav a {
   font-size: 1.25rem;
   padding: 0.3em 0.5em;
+}
+
+/* Cambia a un menú vertical en pantallas pequeñas */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column; /* Cambia el diseño a una columna */
+    gap: 0.5rem; /* Reduce el espacio entre elementos */
+  }
+
+  nav a {
+    width: 100%; /* Los enlaces ocupan todo el ancho del contenedor */
+    text-align: left; /* Opcional: Alinea el texto a la izquierda */
+  }
 }
 
 img {
