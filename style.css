@@ -36,16 +36,15 @@ nav a {
   padding: 0.3em 0.5em;
 }
 
-/* Cambia a un menú vertical en pantallas pequeñas */
 @media (max-width: 768px) {
   nav ul {
-    flex-direction: column; /* Cambia el diseño a una columna */
-    gap: 0.5rem; /* Reduce el espacio entre elementos */
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   nav a {
-    width: 100%; /* Los enlaces ocupan todo el ancho del contenedor */
-    text-align: left; /* Opcional: Alinea el texto a la izquierda */
+    width: 100%;
+    text-align: left;
   }
 }
 
